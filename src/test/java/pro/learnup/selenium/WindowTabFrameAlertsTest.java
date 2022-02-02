@@ -1,4 +1,4 @@
-package pro.learnup;
+package pro.learnup.selenium;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;

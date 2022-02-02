@@ -1,4 +1,4 @@
-package pro.learnup;
+package pro.learnup.selenium;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -9,7 +9,7 @@ public class JavaScriptExecutorTest extends BaseTest {
 
 
     @Test
-    void deleteElementTest() throws InterruptedException {
+    void deleteElementTest() {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) this.webDriver;
 
         webDriver.get("https://demoqa.com/modal-dialogs");

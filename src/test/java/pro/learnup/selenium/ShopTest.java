@@ -1,4 +1,4 @@
-package pro.learnup;
+package pro.learnup.selenium;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,7 +15,7 @@ public class ShopTest extends BaseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"HTC U11"})
-    public void buyPhoneTest(String phoneName) throws InterruptedException {
+    public void buyPhoneTest(String phoneName) {
 
         login();
 

@@ -1,4 +1,4 @@
-package pro.learnup;
+package pro.learnup.selenium;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;

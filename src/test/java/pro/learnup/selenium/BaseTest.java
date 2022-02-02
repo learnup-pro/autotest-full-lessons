@@ -1,4 +1,4 @@
-package pro.learnup;
+package pro.learnup.selenium;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
