@@ -1,5 +1,6 @@
 package pro.learnup.pageobject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ public class PhonePage extends BasePage  {
         super(webDriver);
     }
 
+    @Step("Проверить, что открыта страница {phoneName}")
     public PhonePage checkPhoneName(String phoneName) {
         assertThat(webDriver.findElement(By.cssSelector(".product-details-container h1")).getText())
                 .as("Должна открыться страница с телефоном " + phoneName)
@@ -23,6 +25,7 @@ public class PhonePage extends BasePage  {
         return this;
     }
 
+    @Step("Нажать на кнопку Add to Cart")
     public PhonePage clickAddToCart() {
         addToCartButton.click();
         return this;

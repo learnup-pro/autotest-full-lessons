@@ -1,15 +1,20 @@
 package pro.learnup.pageobject.pages.elements;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WrapsElement;
 
+import static io.qameta.allure.Allure.step;
+
 public class Button implements WrapsElement {
     private WebElement webElement;
+    private String name;
 
     public Button(WebDriver webDriver, String name) {
         this.webElement = webDriver.findElement(By.xpath("//button[.='" + name + "']"));
+        this.name = name;
     }
 
     @Override
@@ -18,7 +23,8 @@ public class Button implements WrapsElement {
     }
 
     public Button click() {
-        getWrappedElement().click();
+        step("Нажать на кнопку " + name, () ->
+                getWrappedElement().click());
         return this;
     }
 

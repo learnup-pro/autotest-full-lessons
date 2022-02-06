@@ -1,5 +1,6 @@
 package pro.learnup.pageobject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ public class PhonesPage extends BasePage  {
         super(webDriver);
     }
 
+    @Step("Выбрать телефон {phoneName}")
     public PhonePage selectPhone(String phoneName) {
         List<WebElement> phones = webDriver.findElements(By.className("product"));
         phones.stream()

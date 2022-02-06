@@ -1,5 +1,6 @@
 package pro.learnup.pageobject.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,7 @@ public class CartPage extends BasePage {
         super(webDriver);
     }
 
+    @Step("Проверить, что в корзине только телефоны {phoneName}")
     public CartPage checkCartContainExactly(String... phoneName) {
         List<String> actualPhoneList = webDriver.findElement(By.className("cart-items"))
                 .findElements(By.xpath(".//table//tbody/tr"))
@@ -34,18 +36,19 @@ public class CartPage extends BasePage {
         assertThat(actualPhoneList).containsExactlyInAnyOrder(phoneName);
         return this;
     }
-
+    @Step("Нажать на кнопку CheckOut")
     public CartPage clickCheckOut() {
         checkOutButton.click();
         return new CartPage(webDriver);
     }
 
+    @Step("Нажать на кнопку Confirm")
     public CartPage clickConfirm() {
         confirmButton.click();
         return new CartPage(webDriver);
     }
 
-
+    @Step("Проверить, что покупка успешно совершена")
     public CartPage checkThatCheckOutIsSuccessful() {
         new WebDriverWait(webDriver, 3).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[text()=\"Your order has been received. The items you've ordered will be sent to your address.\"]")));
         return new CartPage(webDriver);
