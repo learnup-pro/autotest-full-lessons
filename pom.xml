@@ -118,6 +118,12 @@
       <version>${allure.version}</version>
     </dependency>
 
+<!--    <dependency>-->
+<!--      <groupId>io.qameta.allure</groupId>-->
+<!--      <artifactId>allure-assertj</artifactId>-->
+<!--      <version>${allure.version}</version>-->
+<!--    </dependency>-->
+
   </dependencies>
 
   <build>
