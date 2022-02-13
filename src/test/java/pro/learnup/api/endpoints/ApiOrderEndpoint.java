@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import pro.learnup.api.dto.OrderRequestDto;
 import pro.learnup.api.dto.PhoneDto;
 import pro.learnup.api.dto.UserDto;
+import pro.learnup.testdata.User;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import static io.restassured.RestAssured.given;
 public class ApiOrderEndpoint extends BaseEndpoint {
 
     @Step("{this.endpoint}: Оформление заказа")
-    public void orderPhones(UserDto userDto, OrderRequestDto orderRequestDto) {
+    public void orderPhones(User user, OrderRequestDto orderRequestDto) {
         given()
-                .header(userDto.authHeader())
+                .header(user.getAuthHeader())
                 .body(orderRequestDto)
                 .post(getEndpoint())
                 .then()
