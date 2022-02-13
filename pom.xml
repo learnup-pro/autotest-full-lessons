@@ -117,12 +117,20 @@
       <artifactId>allure-rest-assured</artifactId>
       <version>${allure.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongo-java-driver</artifactId>
+      <version>3.12.10</version>
+    </dependency>
 
-<!--    <dependency>-->
+
+    <!--    <dependency>-->
 <!--      <groupId>io.qameta.allure</groupId>-->
 <!--      <artifactId>allure-assertj</artifactId>-->
 <!--      <version>${allure.version}</version>-->
 <!--    </dependency>-->
+
+
 
   </dependencies>
 

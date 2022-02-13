@@ -1,6 +1,7 @@
 package pro.learnup.api;
 
 import io.qameta.allure.junit5.AllureJunit5;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import pro.learnup.api.dto.UserDto;
 import pro.learnup.api.endpoints.ApiAuthRegisterEndpoint;
 import pro.learnup.api.endpoints.ApiUserEndpoint;
 import pro.learnup.api.ext.ApiTestExtension;
+import pro.learnup.testdata.DbTestDataHelper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,5 +30,10 @@ public class ApiUserTest {
         assertThat(new ApiUserEndpoint().getUser(userDto))
                 .usingRecursiveComparison()
                 .isEqualTo(userDto);
+    }
+
+    @AfterEach
+    void tearDown() {
+        DbTestDataHelper.deleteUser(userDto);
     }
 }

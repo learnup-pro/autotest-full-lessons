@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.junit5.AllureJunit5;
 import org.assertj.core.api.SoftAssertions;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import pro.learnup.api.dto.UserDto;
 import pro.learnup.api.endpoints.ApiAuthRegisterEndpoint;
 import pro.learnup.api.endpoints.ApiUserEndpoint;
 import pro.learnup.api.ext.ApiTestExtension;
+import pro.learnup.testdata.DbTestDataHelper;
 
 import java.util.stream.Stream;
 
@@ -22,6 +24,7 @@ import static io.restassured.RestAssured.given;
 @ExtendWith({ApiTestExtension.class, AllureJunit5.class})
 public class ApiAuthRegisterTest {
     static Faker faker = new Faker();
+    UserDto userDto;
 
     public static Stream<UserDto> successfulCreateUserRequests() {
 
@@ -43,20 +46,18 @@ public class ApiAuthRegisterTest {
     @DisplayName("/api/auth/register: 201: успешное создание юзера")
     @MethodSource("successfulCreateUserRequests")
     void createUserTest(UserDto userDto) {
-
-
-        UserDto actualUser = new ApiAuthRegisterEndpoint().registerNewUser(userDto);
+        this.userDto = new ApiAuthRegisterEndpoint().registerNewUser(userDto);
 
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(actualUser)
+        softAssertions.assertThat(userDto)
                 .as("Созданный юзер должен быть равен ожидаемому")
                 .usingRecursiveComparison()
                 .ignoringFields("id", "orders", "password", "token")
                 .isEqualTo(userDto);
-        softAssertions.assertThat(actualUser.getId()).isNotEmpty();
-        softAssertions.assertThat(actualUser.getPassword()).isNotEmpty();
-        softAssertions.assertThat(actualUser.getToken()).isNotEmpty();
-        softAssertions.assertThat(actualUser.getOrders()).isEmpty();
+        softAssertions.assertThat(userDto.getId().toString()).isNotEmpty();
+        softAssertions.assertThat(userDto.getPassword()).isNotEmpty();
+        softAssertions.assertThat(userDto.getToken()).isNotEmpty();
+        softAssertions.assertThat(userDto.getOrders()).isEmpty();
         softAssertions.assertAll();
     }
 
@@ -85,8 +86,7 @@ public class ApiAuthRegisterTest {
     @Test
     @DisplayName("/api/auth/register: 409: User already exists")
     void failedCreateUser409Test() {
-        UserDto userDto = successfulCreateUserRequests().findFirst().orElseThrow();
-        new ApiAuthRegisterEndpoint().registerNewUser(userDto);
+        userDto = new ApiAuthRegisterEndpoint().registerNewUser(successfulCreateUserRequests().findFirst().orElseThrow());
 
         given()
                 .body(userDto)
@@ -94,5 +94,10 @@ public class ApiAuthRegisterTest {
                 .then()
                 .statusCode(409)
                 .body("message", Matchers.equalTo("User already exists"));
+    }
+
+    @AfterEach
+    void tearDown() {
+        DbTestDataHelper.deleteUser(userDto);
     }
 }
